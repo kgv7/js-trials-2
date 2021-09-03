@@ -34,21 +34,22 @@ function kidsGame(names) {
   }
   
   while (true) {
-    // console.log(output) //['noon'] ;; ['noon', 'naan']
-    // console.log(output[output.length - 1]) // noon ;; naan
-    // console.log(output[output.length - 1][output.length - 1]) // n ;; a
-    const startLetter = output[output.length - 1][-1]; //output.length is not right calculation.
-    // console.log(startLetter) // n - a
+    // had to break up const startLetter = output[output.length - 1][output.length - 1];
+    // because it would give the length of output twice, but we needed length
+    // of the word
+    const lastWord  = output[output.length - 1];
+    const lastWordLetter = lastWord[lastWord.length - 1]; 
 
-    if (!firstLetterToWords[startLetter]) {
+    // included a conditon if length = 0
+    if (!firstLetterToWords[lastWordLetter] ||
+      firstLetterToWords[lastWordLetter].length === 0) {
       break
     }
-    // console.log(firstLetterToWords)
-    const word = firstLetterToWords[startLetter][0]; //naan
-    output.push(word); // noon, naan
-    firstLetterToWords[startLetter].shift()
-    // console.log(firstLetterToWords[startLetter])
-    // console.log(firstLetterToWords)
+
+    const word = firstLetterToWords[lastWordLetter][0]; 
+    output.push(word);
+    firstLetterToWords[lastWordLetter].shift()
+
   }
   return output;
 }
