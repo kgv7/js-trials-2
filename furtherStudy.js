@@ -19,9 +19,8 @@ function wordsInCommon(words1, words2) {
 
 function kidsGame(names) {
   // Replace this with your code
-  const output = [names.pop(0)];
-  // need to fix the pop
-  console.log(output)
+  const output = [names.shift(0)];
+  // NOTE: changed .pop to .shift - which removes first item from array
 
   const firstLetterToWords = {};
 
@@ -32,18 +31,24 @@ function kidsGame(names) {
     else {
       firstLetterToWords[name[0]].push(name);
     }
-    console.log(firstLetterToWords);
   }
   
   while (true) {
-    const startLetter = output[output.length - 1][output.length - 1];
+    // console.log(output) //['noon'] ;; ['noon', 'naan']
+    // console.log(output[output.length - 1]) // noon ;; naan
+    // console.log(output[output.length - 1][output.length - 1]) // n ;; a
+    const startLetter = output[output.length - 1][-1]; //output.length is not right calculation.
+    // console.log(startLetter) // n - a
 
     if (!firstLetterToWords[startLetter]) {
       break
     }
-
-    const word = firstLetterToWords[startLetter].pop(0);
-    output.push(word);
+    // console.log(firstLetterToWords)
+    const word = firstLetterToWords[startLetter][0]; //naan
+    output.push(word); // noon, naan
+    firstLetterToWords[startLetter].shift()
+    // console.log(firstLetterToWords[startLetter])
+    // console.log(firstLetterToWords)
   }
   return output;
 }
